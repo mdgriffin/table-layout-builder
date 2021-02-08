@@ -32,6 +32,42 @@
 <script>
 import Cell from "./Cell.vue";
 
+function createInitialTable(numRows, numCols) {
+    var rows = [];
+
+    for(var i = 0; i < numRows; i++) {
+        for(var j = 0; j < numCols; j++) {
+            if (j === 0) {
+                rows[i] = [];
+            }
+
+            rows[i][j] = {
+                colspan: 1,
+                rowspan: 1,
+            }
+        }
+    }
+
+    return rows;
+}
+
+function getTableCellWidth(rows) {
+    return Math.max(...rows.map(row => row.reduce((sum, cell) => sum + cell.colspan, 0)));
+}
+
+function createTableRow(numCols) {
+    var row = [];
+
+    for (var i = 0; i < numCols; i++) {
+        row.push({
+                colspan: 1,
+                rowspan: 1,
+            });
+    }
+
+    return row;
+}
+
 export default {
   name: "TableBuilder",
   components: {
@@ -39,13 +75,7 @@ export default {
   },
   data() {
     return {
-      rows: [
-        [
-          {
-            colspan: 1,
-          },
-        ],
-      ],
+      rows: createInitialTable(20, 20),
     };
   },
   methods: {
@@ -58,7 +88,8 @@ export default {
       );
     },
     addRow(e, rowIndex) {
-      this.rows.splice(rowIndex, 0, this.rows[rowIndex].slice());
+        this.rows.push(createTableRow(getTableCellWidth(this.rows)))
+        
     },
     mergeRight(rowIndex, cellIndex) {
         if (cellIndex < this.rows[rowIndex].length - 1) {
@@ -67,12 +98,12 @@ export default {
         }
     },
     mergeDown(rowIndex, cellIndex) {
-        console.log('merging down', rowIndex, cellIndex);
-        // remove item from row below
-        // change row span to 2
-        if(rowIndex < this.rows.length - 1) {
-            this.rows[rowIndex + 1].splice(cellIndex, 1);
-            this.rows[rowIndex][cellIndex].rowspan++;
+        let currentRowSpan = this.rows[rowIndex][cellIndex].rowspan;
+        if(rowIndex < this.rows.length - currentRowSpan) {
+            // rowspan or row below
+            this.rows[rowIndex][cellIndex].rowspan += this.rows[rowIndex + currentRowSpan][cellIndex].rowspan;
+            this.rows[rowIndex + currentRowSpan].splice(cellIndex, 1);
+            console.log('removing cel', rowIndex + currentRowSpan, cellIndex)
         }
     },
   },

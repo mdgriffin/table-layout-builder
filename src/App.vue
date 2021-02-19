@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <TableBuilder />
+    <layout-builder />
   </div>
 </template>
 
 <script>
-import TableBuilder from './components/TableBuilder.vue'
+// import TableBuilder from './components/TableBuilder.vue'
+import LayoutBuilder from './components/LayoutBuilder.vue';
 
 export default {
   name: 'App',
   components: {
-    TableBuilder
+    LayoutBuilder
   }
 }
 </script>

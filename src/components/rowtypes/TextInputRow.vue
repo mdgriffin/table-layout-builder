@@ -1,13 +1,14 @@
 <template>
     <tr>
         <td>Key</td>
-        <td>Value</td>
+        <td><input type="text" /></td>
         <td><slot></slot></td>
     </tr>
 </template>
 
+
 <script>
 export default {
-    name: 'key-value-row'
+    name: 'text-input-row'
 }
 </script>

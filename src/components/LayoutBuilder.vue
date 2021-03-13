@@ -1,18 +1,27 @@
 <template>
-    <table contenteditable="contenteditable">
-        <component v-for="(row, rowIndex) in rows" :is="row.type" v-bind:key="'rowIndex' + rowIndex">
-            <button @click="deleteRow(rowIndex)">Delete Row</button>
-            <button v-if="rowIndex > 0" @click="moveRowUp(rowIndex)">Move Up</button>
-        </component>
-        <tr>
-            <td colspan="3">
-                <context-menu text="addRow">
-                    <button @click="addRow('key-value-row')">Key/Value Row</button>
-                    <button @click="addRow('text-input-row')">Text Input Row</button>
-                    <button @click="addRow('heading-row')">Heading Row</button>
-                </context-menu>
-            </td>
-        </tr>
+    <table>
+        <tbody class="custom-rows">
+            <component v-for="(row, rowIndex) in rows" :is="row.type" :row-index="rowIndex" v-bind:key="'rowIndex' + rowIndex" @contextMenuOpen="openRowOptions" @click="testing()">
+                <td class="row-options">
+                    <div class="row-options-container">
+                        <button @click="deleteRow(rowIndex)">Delete Row</button>
+                        <button v-if="rowIndex > 0" @click="moveRowUp(rowIndex)">Move Up</button>
+                        <button v-if="rowIndex < rows.length - 1" @click="moveRowDown(rowIndex)">Move Down</button>
+                    </div>
+                </td>
+            </component>
+        </tbody>
+        <tbody>
+            <tr>
+                <td colspan="3">
+                    <context-menu text="Add Row">
+                        <button @click="addRow('key-value-row')">Key/Value Row</button>
+                        <button @click="addRow('text-input-row')">Text Input Row</button>
+                        <button @click="addRow('heading-row')">Heading Row</button>
+                    </context-menu>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </template>
 
@@ -48,13 +57,25 @@ export default {
             this.rows.splice(rowIndex, 1);
         },
         moveRowUp(rowIndex) {
-            console.log('moving up')
             if (rowIndex > 0) {
-                console.log('moving up a')
                 let rowElement = this.rows[rowIndex];
                 this.rows.splice(rowIndex, 1, this.rows[rowIndex - 1]);
                 this.rows.splice(rowIndex - 1, 1, rowElement);
             }
+        },
+        moveRowDown(rowIndex) {
+            if (rowIndex < (this.rows.length - 1)) {
+                let rowElement = this.rows[rowIndex];
+                this.rows.splice(rowIndex, 1);
+                this.rows.splice(rowIndex + 1, 0, rowElement);
+            }
+        },
+        openRowOptions(options) {
+            options.e.preventDefault();
+            console.log('Show context menu for ' + options.rowIndex);
+        },
+        testing() {
+            console.log('testing 123')
         }
     }
 }
@@ -64,5 +85,25 @@ export default {
 table td {
     border: 1px solid black;
     padding: 5px;
+}
+
+.row-options {
+    position: relative;
+    background: green;
+}
+
+.row-options > div {
+    display: none;
+    position: absolute;
+    width: 300px;
+    background: #f4f4f4;
+}
+
+.row-options > div button {
+    display: inline;
+}
+
+.custom-rows tr:hover .row-options > div {
+    display: block;
 }
 </style>

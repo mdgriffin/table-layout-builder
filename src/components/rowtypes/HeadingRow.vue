@@ -1,14 +1,20 @@
 <template>
-    <tr>
+    <tr @contextmenu="openContextMenu($event)">
         <td colspan="2"><h3>Heading</h3></td>
-        <td><slot></slot></td>
+        <slot></slot>
     </tr>
 
 </template>
 
 <script>
 export default {
-    name: 'heading-row'
+    name: 'heading-row',
+    props: ['rowIndex'],
+    methods: {
+        openContextMenu(e) {
+            this.$emit('contextMenuOpen', {e: e, rowIndex: this.rowIndex});
+        }
+    }
 }
 </script>
 

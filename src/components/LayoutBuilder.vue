@@ -7,20 +7,24 @@
             <tbody>
                 <tr>
                     <td colspan="3">
-                        <context-menu text="Add Row">
+                        <menu-button text="Add Row">
                             <button @click="addRow('key-value-row')">Key/Value Row</button>
                             <button @click="addRow('text-input-row')">Text Input Row</button>
                             <button @click="addRow('heading-row')">Heading Row</button>
-                        </context-menu>
+                        </menu-button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="ctxMenu" v-if="ctxMenuVisible" v-click-outside="hideContextMenu" :style="{top: ctxMenuY + 'px', left: ctxMenuX + 'px'}">
-            <button @click="deleteRow(selectedRowIndex)">Delete Row</button>
-            <button @click="moveRowUp(selectedRowIndex)">Move Up</button>
-            <button @click="moveRowDown(selectedRowIndex)">Move Down</button>
-        </div>
+        <context-menu 
+            v-if="ctxMenuVisible"
+            :x-coord="ctxMenuX"
+            :y-coord="ctxMenuY" 
+            :row-index="selectedRowIndex"
+            @deleteRow="deleteRow"
+            @moveRowUp="moveRowUp"
+            @moveRowDown="moveRowDown"
+            @clickOutside="closeContextMenu"></context-menu>
     </div>
 </template>
 
@@ -29,8 +33,8 @@
 import KeyValueRow from './rowtypes/KeyValueRow';
 import TextInputRow from './rowtypes/TextInputRow';
 import HeadingRow from './rowtypes/HeadingRow';
-import ContextMenu from './ContextMenu';
-import ClickOutside from 'vue-click-outside';
+import MenuButton from './MenuButton';
+import ContextMenu from './ContextMenu'
 
 export default {
     name: 'layout-builder',
@@ -46,10 +50,11 @@ export default {
         }
     },
     components: {
-        ContextMenu,
+        MenuButton,
         KeyValueRow,
         TextInputRow,
-        HeadingRow
+        HeadingRow,
+        ContextMenu
     },
     methods: {
         addRow(type) {
@@ -85,13 +90,10 @@ export default {
             this.ctxMenuY = options.e.clientY;
             this.ctxMenuVisible = true;
         },
-        hideContextMenu() {
+        closeContextMenu() {
             this.ctxMenuVisible = false;
         }
     },
-    directives: {
-        ClickOutside
-    }
 }
 </script>
 
@@ -99,27 +101,5 @@ export default {
 table td {
     border: 1px solid black;
     padding: 5px;
-}
-
-.ctxMenu {
-    position: absolute;
-    border: 1px solid #f4f4f4;
-    background: #fff;
-    color: #fff;
-    box-shadow: 0 0 1px rgba(0,0,0,0.1);
-}
-
-.ctxMenu button {
-    display: block;
-    width: 100%;
-    background: none;
-    border: 1px solid #f4f4f4;
-    line-height: 40px;
-    padding: 0 40px;
-    cursor: pointer;
-}
-
-.ctxMenu button:hover {
-    background: #f4f4f4;
 }
 </style>

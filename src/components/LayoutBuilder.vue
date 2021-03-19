@@ -2,18 +2,10 @@
     <div>
         <table>
             <tbody class="custom-rows">
-                <component v-for="(row, rowIndex) in rows" :is="row.type" :row-index="rowIndex" v-bind:key="'rowIndex' + rowIndex" @contextMenuOpen="openRowOptions" @click="testing()"></component>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td colspan="3">
-                        <menu-button text="Add Row">
-                            <button @click="addRow('key-value-row')">Key/Value Row</button>
-                            <button @click="addRow('text-input-row')">Text Input Row</button>
-                            <button @click="addRow('heading-row')">Heading Row</button>
-                        </menu-button>
-                    </td>
-                </tr>
+                <component v-for="(row, rowIndex) in rows" :is="row.type" :row-index="rowIndex" v-bind:key="'rowIndex' + rowIndex"
+                    @contextMenuOpen="openRowOptions" 
+                    @click="testing()">
+                </component>
             </tbody>
         </table>
         <context-menu 
@@ -24,6 +16,7 @@
             @deleteRow="deleteRow"
             @moveRowUp="moveRowUp"
             @moveRowDown="moveRowDown"
+            @addRow="addRow"
             @clickOutside="closeContextMenu"></context-menu>
     </div>
 </template>
@@ -61,6 +54,7 @@ export default {
             this.rows.push({
                 type: type
             });
+            this.ctxMenuVisible = false;
         },
         deleteRow(rowIndex) {
             this.rows.splice(rowIndex, 1);

@@ -26,7 +26,6 @@
 import KeyValueRow from './rowtypes/KeyValueRow';
 import TextInputRow from './rowtypes/TextInputRow';
 import HeadingRow from './rowtypes/HeadingRow';
-import MenuButton from './MenuButton';
 import ContextMenu from './ContextMenu'
 
 export default {
@@ -43,7 +42,6 @@ export default {
         }
     },
     components: {
-        MenuButton,
         KeyValueRow,
         TextInputRow,
         HeadingRow,

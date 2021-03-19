@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <layout-builder />
+    <div class="container">
+      <layout-builder />
+    </div>
   </div>
 </template>
 
@@ -21,8 +23,16 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background: #f4f4f4;
+  margin: 0;
+}
+
+.container {
+  width: 75%;
+  margin: 40px auto;
+  background: #fff;
+  padding: 2em;
+  border: 1px #ccc;
 }
 </style>

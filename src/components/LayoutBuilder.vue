@@ -90,6 +90,14 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0;
+}
+
+table {
+    width: 100%;
+}
+
 table td {
     border: 1px solid black;
     padding: 5px;

@@ -13,11 +13,20 @@
             :x-coord="ctxMenuX"
             :y-coord="ctxMenuY" 
             :row-index="selectedRowIndex"
-            @deleteRow="deleteRow"
-            @moveRowUp="moveRowUp"
-            @moveRowDown="moveRowDown"
-            @addRow="addRow"
-            @clickOutside="closeContextMenu"></context-menu>
+            @clickOutside="closeContextMenu">
+            <div v-show="addRowOptionsIsOpen">
+                <button @click="addRow('key-value-row')">Key/Value Row</button>
+                <button @click="addRow('text-input-row')">Text Input Row</button>
+                <button @click="addRow('heading-row')">Heading Row</button>
+                <button @click="addRow('button-row')">Button Row</button>
+            </div>
+            <div v-show="!addRowOptionsIsOpen">
+                <button @click="deleteRow()">Delete Row</button>
+                <button @click="moveRowUp()">Move Up</button>
+                <button @click="moveRowDown()">Move Down</button>
+                <button @click="showAddRowOptions()">Add Row</button>
+            </div>
+        </context-menu>
     </div>
 </template>
 
@@ -39,7 +48,8 @@ export default {
             ctxMenuVisible: false,
             ctxMenuX: 0,
             ctxMenuY: 0,
-            selectedRowIndex: 0
+            selectedRowIndex: 0,
+            addRowOptionsIsOpen: false
         }
     },
     components: {
@@ -56,12 +66,12 @@ export default {
             });
             this.ctxMenuVisible = false;
         },
-        deleteRow(rowIndex) {
-            this.rows.splice(rowIndex, 1);
+        deleteRow() {
+            this.rows.splice(this.selectedRowIndex, 1);
             this.ctxMenuVisible = false;
         },
-        moveRowUp(rowIndex) {
-            console.log('moving row ' + rowIndex);
+        moveRowUp() {
+            var rowIndex = this.selectedRowIndex;
             if (rowIndex > 0) {
                 let rowElement = this.rows[rowIndex];
                 this.rows.splice(rowIndex, 1, this.rows[rowIndex - 1]);
@@ -69,7 +79,8 @@ export default {
                 this.ctxMenuVisible = false;
             }
         },
-        moveRowDown(rowIndex) {
+        moveRowDown() {
+            var rowIndex = this.selectedRowIndex;
             if (rowIndex < (this.rows.length - 1)) {
                 let rowElement = this.rows[rowIndex];
                 this.rows.splice(rowIndex, 1);
@@ -83,6 +94,9 @@ export default {
             this.ctxMenuX = options.e.clientX;
             this.ctxMenuY = options.e.clientY;
             this.ctxMenuVisible = true;
+        },
+        showAddRowOptions() {
+            this.addRowOptionsIsOpen = true;
         },
         closeContextMenu() {
             this.ctxMenuVisible = false;

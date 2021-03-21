@@ -96,10 +96,15 @@ body {
 
 table {
     width: 100%;
+    border-collapse: collapse;
 }
 
 table td {
-    border: 1px solid black;
+    border: 1px solid rgb(226, 226, 226);
     padding: 5px;
+}
+
+table tr:nth-child(odd) td {
+    background: #f4f4f4;
 }
 </style>

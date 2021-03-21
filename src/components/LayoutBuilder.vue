@@ -26,7 +26,8 @@
 import KeyValueRow from './rowtypes/KeyValueRow';
 import TextInputRow from './rowtypes/TextInputRow';
 import HeadingRow from './rowtypes/HeadingRow';
-import ContextMenu from './ContextMenu'
+import ButtonRow from './rowtypes/ButtonRow';
+import ContextMenu from './ContextMenu';
 
 export default {
     name: 'layout-builder',
@@ -45,6 +46,7 @@ export default {
         KeyValueRow,
         TextInputRow,
         HeadingRow,
+        ButtonRow,
         ContextMenu
     },
     methods: {

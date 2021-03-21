@@ -4,6 +4,7 @@
             <button @click="addRow('key-value-row')">Key/Value Row</button>
             <button @click="addRow('text-input-row')">Text Input Row</button>
             <button @click="addRow('heading-row')">Heading Row</button>
+            <button @click="addRow('button-row')">Button Row</button>
         </div>
         <div v-show="!addRowOptionsIsOpen">
             <button @click="deleteRow()">Delete Row</button>

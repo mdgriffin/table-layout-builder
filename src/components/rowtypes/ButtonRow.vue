@@ -1,19 +1,66 @@
 <template>
     <tr @contextmenu="openContextMenu($event)" contenteditable="contenteditable">
         <td colspan="2">
-            <button>Button 1</button>
-            <button>Button 2</button>
+            <button @contextmenu="openButtonOptions($event, buttonIndex)" v-for="(button, buttonIndex) in buttons" :key="'rowBtn-' + buttonIndex">{{button}}</button>
         </td>
+        <context-menu
+            v-if="ctxMenuVisible"
+            :x-coord="ctxMenuX"
+            :y-coord="ctxMenuY" 
+            @clickOutside="closeButtonOptionsContextMenu">
+            <button @click="addButtonAfter">Add Button After</button>
+            <button @click="addButtonBefore">Add Button Before</button>
+            <button @click="deleteButton">Delete Button</button>
+    </context-menu>
     </tr>
+    
 </template>
 
 <script>
+import ContextMenu from '../ContextMenu.vue';
+
 export default {
     name: 'button-row',
     props: ['rowIndex'],
+    data() {
+        return {
+            buttons: ['Confirm', 'Cancel'],
+            ctxMenuVisible: false,
+            ctxMenuX: 0,
+            ctxMenuY: 0,
+            selectedButtonIndex: -1
+        }
+    },
+    components: {
+        ContextMenu
+    },
     methods: {
         openContextMenu(e) {
             this.$emit('contextMenuOpen', {e: e, rowIndex: this.rowIndex});
+        },
+        closeButtonOptionsContextMenu() {
+            this.ctxMenuVisible = false;
+        },
+        openButtonOptions(e, buttonIndex) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.selectedButtonIndex = buttonIndex;
+            this.ctxMenuX = e.clientX;
+            this.ctxMenuY = e.clientY;
+            this.ctxMenuVisible = true;
+            
+        },
+        addButtonAfter() {
+            this.ctxMenuVisible = false;
+            this.buttons.splice(this.selectedButtonIndex + 1, 0, 'Button')
+        },
+        addButtonBefore() {
+            this.buttons.splice(this.selectedButtonIndex, 0, 'Button')
+            this.ctxMenuVisible = false;
+        },
+        deleteButton() {
+            this.buttons.splice(this.selectedButtonIndex, 1);
+            this.ctxMenuVisible = false;
         }
     }
 }

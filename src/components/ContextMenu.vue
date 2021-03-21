@@ -8,7 +8,7 @@
 import ClickOutside from 'vue-click-outside';
 
 export default {
-    props: ['xCoord', 'yCoord', 'rowIndex'],
+    props: ['xCoord', 'yCoord'],
     name: 'context-menu',
     methods: {
         hideContextMenu() {

@@ -12,7 +12,6 @@
             v-if="ctxMenuVisible"
             :x-coord="ctxMenuX"
             :y-coord="ctxMenuY" 
-            :row-index="selectedRowIndex"
             @clickOutside="closeContextMenu">
             <div v-show="addRowOptionsIsOpen">
                 <button @click="addRow('key-value-row')">Key/Value Row</button>

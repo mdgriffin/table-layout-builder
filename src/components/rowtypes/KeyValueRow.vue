@@ -1,5 +1,5 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)">
+    <tr @contextmenu="openContextMenu($event)" contenteditable="contenteditable">
         <td>Key</td>
         <td>Value</td>
         <slot></slot>

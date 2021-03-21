@@ -1,9 +1,8 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)">
+    <tr @contextmenu="openContextMenu($event)" contenteditable="contenteditable">
         <td colspan="2"><h3>Heading</h3></td>
         <slot></slot>
     </tr>
-
 </template>
 
 <script>

@@ -63,11 +63,11 @@ export default {
             this.rows.push({
                 type: type
             });
-            this.ctxMenuVisible = false;
+            this.closeContextMenu();
         },
         deleteRow() {
             this.rows.splice(this.selectedRowIndex, 1);
-            this.ctxMenuVisible = false;
+            this.closeContextMenu();
         },
         moveRowUp() {
             var rowIndex = this.selectedRowIndex;
@@ -75,7 +75,7 @@ export default {
                 let rowElement = this.rows[rowIndex];
                 this.rows.splice(rowIndex, 1, this.rows[rowIndex - 1]);
                 this.rows.splice(rowIndex - 1, 1, rowElement);
-                this.ctxMenuVisible = false;
+                this.closeContextMenu();
             }
         },
         moveRowDown() {
@@ -84,7 +84,7 @@ export default {
                 let rowElement = this.rows[rowIndex];
                 this.rows.splice(rowIndex, 1);
                 this.rows.splice(rowIndex + 1, 0, rowElement);
-                this.ctxMenuVisible = false;
+                this.closeContextMenu();
             }
         },
         openRowOptions(options) {
@@ -98,6 +98,7 @@ export default {
             this.addRowOptionsIsOpen = true;
         },
         closeContextMenu() {
+            this.addRowOptionsIsOpen = false;
             this.ctxMenuVisible = false;
         }
     },

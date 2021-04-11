@@ -1,5 +1,17 @@
 # table-builder
 
+## TODO
+
+- [ ] Get styles consistent
+- [ ] More row types
+    - [ ] Date input row
+    - [X] Select input
+        - [ ] Make options editable
+- [ ] HTML Export
+- [ ] Extract common row parts into new partent component
+
+
+
 ## Project setup
 ```
 yarn install

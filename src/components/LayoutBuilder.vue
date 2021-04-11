@@ -18,6 +18,7 @@
                 <button @click="addRow('text-input-row')">Text Input Row</button>
                 <button @click="addRow('heading-row')">Heading Row</button>
                 <button @click="addRow('button-row')">Button Row</button>
+                <button @click="addRow('select-row')">Select Row</button>
             </div>
             <div v-show="!addRowOptionsIsOpen">
                 <button @click="deleteRow()">Delete Row</button>
@@ -29,12 +30,12 @@
     </div>
 </template>
 
-
 <script>
 import KeyValueRow from './rowtypes/KeyValueRow';
 import TextInputRow from './rowtypes/TextInputRow';
 import HeadingRow from './rowtypes/HeadingRow';
 import ButtonRow from './rowtypes/ButtonRow';
+import SelectRow from './rowtypes/SelectRow';
 import ContextMenu from './ContextMenu';
 
 export default {
@@ -56,6 +57,7 @@ export default {
         TextInputRow,
         HeadingRow,
         ButtonRow,
+        SelectRow,
         ContextMenu
     },
     methods: {

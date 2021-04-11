@@ -18,7 +18,9 @@
                 <button @click="addRow('text-input-row')">Text Input Row</button>
                 <button @click="addRow('heading-row')">Heading Row</button>
                 <button @click="addRow('button-row')">Button Row</button>
+                <button @click="addRow('date-picker-row')">Datepicker Row</button>
                 <button @click="addRow('select-row')">Select Row</button>
+                <button @click="addRow('test-row')">Test Row</button>
             </div>
             <div v-show="!addRowOptionsIsOpen">
                 <button @click="deleteRow()">Delete Row</button>
@@ -36,6 +38,8 @@ import TextInputRow from './rowtypes/TextInputRow';
 import HeadingRow from './rowtypes/HeadingRow';
 import ButtonRow from './rowtypes/ButtonRow';
 import SelectRow from './rowtypes/SelectRow';
+import DatePickerRow from './rowtypes/DatePickerRow';
+import TestRow from './rowtypes/TestRow';
 import ContextMenu from './ContextMenu';
 
 export default {
@@ -58,6 +62,8 @@ export default {
         HeadingRow,
         ButtonRow,
         SelectRow,
+        DatePickerRow,
+        TestRow,
         ContextMenu
     },
     methods: {

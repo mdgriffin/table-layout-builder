@@ -4,12 +4,11 @@
 
 - [ ] Get styles consistent
 - [ ] More row types
-    - [ ] Date input row
-    - [X] Select input
+    - [x] Date input row
+    - [x] Select input
         - [ ] Make options editable
-- [ ] HTML Export
+- [x] ~~HTML Export~~ (handled by introspector)
 - [ ] Extract common row parts into new partent component
-
 
 
 ## Project setup

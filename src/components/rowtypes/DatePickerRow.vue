@@ -29,3 +29,7 @@ export default {
     }
 }
 </script>
+
+<style>
+@import url('https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css');
+</style>

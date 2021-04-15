@@ -1,6 +1,6 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)" contenteditable="contenteditable">
-        <td>Key</td>
+    <tr @contextmenu="openContextMenu($event)" >
+        <td contenteditable="contenteditable">Key</td>
         <td>
             <input type="text" ref="datepicker" />
         </td>

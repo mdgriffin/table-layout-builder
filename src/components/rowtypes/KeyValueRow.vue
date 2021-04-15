@@ -1,7 +1,7 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)" contenteditable="contenteditable">
-        <td>Key</td>
-        <td>Value</td>
+    <tr @contextmenu="openContextMenu($event)" >
+        <td contenteditable="contenteditable" @input="onKeyChange">Key</td>
+        <td contenteditable="contenteditable" @input="onValueChange">Value</td>
         <slot></slot>
     </tr>
 </template>
@@ -13,6 +13,12 @@ export default {
     methods: {
         openContextMenu(e) {
             this.$emit('contextMenuOpen', {e: e, rowIndex: this.rowIndex});
+        },
+        onKeyChange(e) {
+            console.log(e.target.innerText);
+        },
+        onValueChange(e) {
+            console.log('on value change: ' + e.target.innerText);
         }
     }
 }

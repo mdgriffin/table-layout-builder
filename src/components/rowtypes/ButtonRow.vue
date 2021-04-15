@@ -1,7 +1,7 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)" contenteditable="contenteditable">
+    <tr @contextmenu="openContextMenu($event)">
         <td colspan="2">
-            <button @contextmenu="openButtonOptions($event, buttonIndex)" v-for="(button, buttonIndex) in buttons" :key="'rowBtn-' + buttonIndex">{{button}}</button>
+            <button @contextmenu="openButtonOptions($event, buttonIndex)" contenteditable="contenteditable" v-for="(button, buttonIndex) in buttons" :key="'rowBtn-' + buttonIndex">{{button}}</button>
         </td>
         <context-menu
             v-if="ctxMenuVisible"

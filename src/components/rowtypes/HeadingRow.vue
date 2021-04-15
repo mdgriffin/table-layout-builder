@@ -1,6 +1,6 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)" contenteditable="contenteditable">
-        <td colspan="2"><h3>Heading</h3></td>
+    <tr @contextmenu="openContextMenu($event)" >
+        <td colspan="2" contenteditable="contenteditable"><h3>Heading</h3></td>
         <slot></slot>
     </tr>
 </template>

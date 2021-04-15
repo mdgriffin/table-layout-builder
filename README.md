@@ -8,7 +8,7 @@
     - [x] Select input
         - [ ] Make options editable
 - [x] ~~HTML Export~~ (handled by introspector)
-- [ ] Extract common row parts into new partent component
+- [ ] Extract common row methods into mixin
 
 
 ## Project setup

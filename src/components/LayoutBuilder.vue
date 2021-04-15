@@ -45,7 +45,6 @@ import HeadingRow from "./rowtypes/HeadingRow";
 import ButtonRow from "./rowtypes/ButtonRow";
 import SelectRow from "./rowtypes/SelectRow";
 import DatePickerRow from "./rowtypes/DatePickerRow";
-import TestRow from "./rowtypes/TestRow";
 import ContextMenu from "./ContextMenu";
 import ArrowUp from "./icons/ArrowUp";
 import ArrowDown from "./icons/ArrowDown"
@@ -72,8 +71,7 @@ export default {
         { type: "heading-row", name: "Heading Row" },
         { type: "button-row", name: "Button Row" },
         { type: "date-picker-row", name: "Datepicker Row" },
-        { type: "select-row", name: "Select Row" },
-        { type: "test-row", name: "Test Row" },
+        { type: "select-row", name: "Select Row" }
       ],
     };
   },
@@ -84,7 +82,6 @@ export default {
     ButtonRow,
     SelectRow,
     DatePickerRow,
-    TestRow,
     ContextMenu,
     ArrowUp,
     ArrowDown,

@@ -1,5 +1,5 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)">
+    <tr @contextmenu="openContextMenu($event)" class="button-row">
         <td colspan="2">
             <button @contextmenu="openButtonOptions($event, buttonIndex)" contenteditable="contenteditable" v-for="(button, buttonIndex) in buttons" :key="'rowBtn-' + buttonIndex">{{button}}</button>
         </td>
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style>
-td {
+.button-row td {
     text-align: center;
 }
 </style>

@@ -29,10 +29,10 @@
         </button>
       </div>
       <div v-show="!addRowOptionsIsOpen">
-        <button @click="deleteRow()">Delete Row</button>
-        <button @click="moveRowUp()">Move Up</button>
-        <button @click="moveRowDown()">Move Down</button>
-        <button @click="showAddRowOptions()">Add Row</button>
+        <button @click="deleteRow()"><x-square /> Delete Row</button>
+        <button @click="moveRowUp()"><arrow-up /> Move Up</button>
+        <button @click="moveRowDown()"><arrow-down /> Move Down</button>
+        <button @click="showAddRowOptions()"><plus-square /> Add Row</button>
       </div>
     </context-menu>
   </div>
@@ -47,6 +47,10 @@ import SelectRow from "./rowtypes/SelectRow";
 import DatePickerRow from "./rowtypes/DatePickerRow";
 import TestRow from "./rowtypes/TestRow";
 import ContextMenu from "./ContextMenu";
+import ArrowUp from "./icons/ArrowUp";
+import ArrowDown from "./icons/ArrowDown"
+import PlusSquare from './icons/PlusSquare.vue';
+import XSquare from './icons/XSquare.vue';
 
 export default {
   name: "layout-builder",
@@ -82,6 +86,10 @@ export default {
     DatePickerRow,
     TestRow,
     ContextMenu,
+    ArrowUp,
+    ArrowDown,
+    PlusSquare,
+    XSquare
   },
   methods: {
     addRow(type) {

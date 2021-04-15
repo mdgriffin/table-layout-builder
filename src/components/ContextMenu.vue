@@ -36,11 +36,18 @@ export default {
     background: none;
     border: 1px solid #f4f4f4;
     line-height: 40px;
-    padding: 0 40px;
+    padding: 0 20px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .ctxMenu button:hover {
     background: #f4f4f4;
+}
+
+.ctxMenu button svg {
+    margin-right: 10px;
+    color: rgb(41, 177, 82);
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)" class="button-row">
-        <td colspan="2">
+    <tr  class="button-row">
+        <row-cell colspan="2" @contextMenuOpen="openContextMenu">
             <button @contextmenu="openButtonOptions($event, buttonIndex)" contenteditable="contenteditable" v-for="(button, buttonIndex) in buttons" :key="'rowBtn-' + buttonIndex">{{button}}</button>
-        </td>
+        </row-cell>
         <context-menu
             v-if="ctxMenuVisible"
             :x-coord="ctxMenuX"
@@ -18,6 +18,7 @@
 
 <script>
 import ContextMenu from '../ContextMenu.vue';
+import RowCell from '../RowCell.vue';
 
 export default {
     name: 'button-row',
@@ -32,11 +33,12 @@ export default {
         }
     },
     components: {
-        ContextMenu
+        ContextMenu,
+        RowCell
     },
     methods: {
-        openContextMenu(e) {
-            this.$emit('contextMenuOpen', {e: e, rowIndex: this.rowIndex});
+        openContextMenu(cellOptions) {
+            this.$emit('contextMenuOpen', {e: cellOptions.e, rowIndex: this.rowIndex, contextOptions: cellOptions.contextOptions});
         },
         closeButtonOptionsContextMenu() {
             this.ctxMenuVisible = false;

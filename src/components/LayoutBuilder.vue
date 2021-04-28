@@ -27,12 +27,16 @@
         >
           {{ rowType.name }}
         </button>
+        
       </div>
       <div v-show="!addRowOptionsIsOpen">
         <button @click="deleteRow()"><x-square /> Delete Row</button>
         <button @click="moveRowUp()"><arrow-up /> Move Up</button>
         <button @click="moveRowDown()"><arrow-down /> Move Down</button>
         <button @click="showAddRowOptions()"><plus-square /> Add Row</button>
+        <button v-for="(contextOption, contextOptionIndex) in additionalContextOptions" @click="contextOption.action"  :key="'addition-option-' + contextOptionIndex">
+          {{contextOption.text}}
+        </button>
       </div>
     </context-menu>
   </div>
@@ -65,6 +69,7 @@ export default {
       ctxMenuY: 0,
       selectedRowIndex: 0,
       addRowOptionsIsOpen: false,
+      additionalContextOptions: [],
       rowTypes: [
         { type: "key-value-row", name: "Key/Value Row" },
         { type: "text-input-row", name: "Text Input Row" },
@@ -123,6 +128,11 @@ export default {
       this.ctxMenuX = options.e.clientX;
       this.ctxMenuY = options.e.clientY;
       this.ctxMenuVisible = true;
+
+      if(options.contextOptions) {
+        console.log(options.contextOptions)
+        this.additionalContextOptions = options.contextOptions;
+      }
     },
     showAddRowOptions() {
       this.addRowOptionsIsOpen = true;

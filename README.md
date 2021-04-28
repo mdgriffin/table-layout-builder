@@ -9,6 +9,7 @@
         - [ ] Make options editable
 - [x] ~~HTML Export~~ (handled by introspector)
 - [ ] Extract common row methods into mixin
+- [ ] Cell CSS styling options in context menu
 
 
 ## Project setup

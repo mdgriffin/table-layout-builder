@@ -1,20 +1,21 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)" contenteditable="contenteditable">
-        <td>Key</td>
-        <td><input type="text" /></td>
+    <tr @contextmenu="openContextMenu" contenteditable="contenteditable">
+        <row-cell>Key</row-cell>
+        <row-cell><input type="text" /></row-cell>
         <slot></slot>
     </tr>
 </template>
 
-
 <script>
+import RowCell from '../RowCell.vue';
+import rowCommon from './row-common';
+
 export default {
     name: 'text-input-row',
     props: ['rowIndex'],
-    methods: {
-        openContextMenu(e) {
-            this.$emit('contextMenuOpen', {e: e, rowIndex: this.rowIndex});
-        }
+    mixins: [rowCommon],
+    components: {
+        RowCell
     }
 }
 </script>

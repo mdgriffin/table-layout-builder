@@ -19,10 +19,12 @@
 <script>
 import ContextMenu from '../ContextMenu.vue';
 import RowCell from '../RowCell.vue';
+import rowCommon from './row-common.js';
 
 export default {
     name: 'button-row',
     props: ['rowIndex'],
+    mixins: [rowCommon],
     data() {
         return {
             buttons: ['Confirm', 'Cancel'],
@@ -37,9 +39,6 @@ export default {
         RowCell
     },
     methods: {
-        openContextMenu(cellOptions) {
-            this.$emit('contextMenuOpen', {e: cellOptions.e, rowIndex: this.rowIndex, contextOptions: cellOptions.contextOptions});
-        },
         closeButtonOptionsContextMenu() {
             this.ctxMenuVisible = false;
         },

@@ -1,19 +1,23 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)" >
-        <td contenteditable="contenteditable" @input="onKeyChange">Key</td>
-        <td contenteditable="contenteditable" @input="onValueChange">Value</td>
+    <tr>
+        <row-cell @contextMenuOpen="openContextMenu" contenteditable="contenteditable" @input="onKeyChange">Key</row-cell>
+        <row-cell @contextMenuOpen="openContextMenu" contenteditable="contenteditable" @input="onValueChange">Value</row-cell>
         <slot></slot>
     </tr>
 </template>
 
 <script>
+import RowCell from '../RowCell.vue';
+import rowCommon from './row-common.js';
+
 export default {
     name: 'key-value-row',
     props: ['rowIndex'],
+    mixins: [rowCommon],
+    components: {
+        RowCell
+    },
     methods: {
-        openContextMenu(e) {
-            this.$emit('contextMenuOpen', {e: e, rowIndex: this.rowIndex});
-        },
         onKeyChange(e) {
             console.log(e.target.innerText);
         },

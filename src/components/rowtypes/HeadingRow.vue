@@ -1,18 +1,20 @@
 <template>
-    <tr @contextmenu="openContextMenu($event)" >
-        <td colspan="2" contenteditable="contenteditable"><h3>Heading</h3></td>
+    <tr>
+        <row-cell @contextMenuOpen="openContextMenu" colspan="2" contenteditable="contenteditable"><h3>Heading</h3></row-cell>
         <slot></slot>
     </tr>
 </template>
 
 <script>
+import RowCell from '../RowCell.vue';
+import rowCommon from './row-common';
+
 export default {
     name: 'heading-row',
     props: ['rowIndex'],
-    methods: {
-        openContextMenu(e) {
-            this.$emit('contextMenuOpen', {e: e, rowIndex: this.rowIndex});
-        }
+    mixins: [rowCommon],
+    components: {
+        RowCell
     }
 }
 </script>

@@ -18,7 +18,7 @@
       :y-coord="ctxMenuY"
       @clickOutside="closeContextMenu"
     >
-      <button v-for="(contextOption, contextOptionKey) in activeContextOptions" v-bind:key="contextOptionKey" @click="contextOption.action">
+      <button v-for="(contextOption, contextOptionKey) in activeContextOptions" v-bind:key="contextOptionKey" @click="contextOption.action? contextOption.action() : openSubContextOption(contextOptionKey)">
         {{contextOption.text}}
       </button>
     </context-menu>
@@ -68,8 +68,8 @@ export default {
         },
         'ctx-add-row': {
           text: 'Add Row',
-          icon: 'df',
-          action: () => self.openSubContextOption('ctx-add-row'),
+          icon: 'df', // TODO: Use icon
+          //action: () => self.openSubContextOption('ctx-add-row'),
           subOptions: {
             "ctx-add-key-value-row": { text: "Key/Value Row", action: () => self.addRow('key-value-row') },
             "ctx-add-text-input-row": { text: "Text Input Row", action: () => self.addRow('text-input-row') },
@@ -106,11 +106,13 @@ export default {
         type: type,
       });
       this.closeContextMenu();
+      this.activeContextSubOptionsKey = undefined;
     },
     deleteRow() {
       console.log('deleting row')
       this.rows.splice(this.selectedRowIndex, 1);
       this.closeContextMenu();
+      this.activeContextSubOptionsKey = undefined;
     },
     moveRowUp() {
       var rowIndex = this.selectedRowIndex;
@@ -119,6 +121,7 @@ export default {
         this.rows.splice(rowIndex, 1, this.rows[rowIndex - 1]);
         this.rows.splice(rowIndex - 1, 1, rowElement);
         this.closeContextMenu();
+        this.activeContextSubOptionsKey = undefined;
       }
     },
     moveRowDown() {
@@ -128,6 +131,7 @@ export default {
         this.rows.splice(rowIndex, 1);
         this.rows.splice(rowIndex + 1, 0, rowElement);
         this.closeContextMenu();
+        this.activeContextSubOptionsKey = undefined;
       }
     },
     openRowOptions(options) {
@@ -139,7 +143,7 @@ export default {
 
       if(options.contextOptions) {
         console.log(options.contextOptions)
-        // TODO: Add to additionalContextOptions
+        this.additionalContextOptions = options.contextOptions;
       }
     },
     openSubContextOption(contextOptionKey) {
@@ -154,13 +158,13 @@ export default {
   },
   computed: {
     contextOptions() {
-      // TODO: Merge default and additional to create an all available options
+      return {...this.defaultContextOptions, ...this.additionalContextOptions}
     },
     activeContextOptions() {
       if (this.activeContextSubOptionsKey) {
-        return this.defaultContextOptions[this.activeContextSubOptionsKey].subOptions;
+        return this.contextOptions[this.activeContextSubOptionsKey].subOptions;
       } else {
-        return this.defaultContextOptions;
+        return this.contextOptions;
       }
       
     }

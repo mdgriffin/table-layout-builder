@@ -8,7 +8,6 @@
           :row-index="rowIndex"
           v-bind:key="'rowIndex' + rowIndex"
           @contextMenuOpen="openRowOptions"
-          @click="testing()"
         >
         </component>
       </tbody>
@@ -19,25 +18,9 @@
       :y-coord="ctxMenuY"
       @clickOutside="closeContextMenu"
     >
-      <div v-show="addRowOptionsIsOpen">
-        <button
-          v-for="rowType in rowTypes"
-          @click="addRow(rowType.type)"
-          :key="'type-' + rowType.type"
-        >
-          {{ rowType.name }}
-        </button>
-        
-      </div>
-      <div v-show="!addRowOptionsIsOpen">
-        <button @click="deleteRow()"><x-square /> Delete Row</button>
-        <button @click="moveRowUp()"><arrow-up /> Move Up</button>
-        <button @click="moveRowDown()"><arrow-down /> Move Down</button>
-        <button @click="showAddRowOptions()"><plus-square /> Add Row</button>
-        <button v-for="(contextOption, contextOptionIndex) in additionalContextOptions" @click="contextOption.action"  :key="'addition-option-' + contextOptionIndex">
-          {{contextOption.text}}
-        </button>
-      </div>
+      <button v-for="(contextOption, contextOptionKey) in activeContextOptions" v-bind:key="contextOptionKey" @click="contextOption.action">
+        {{contextOption.text}}
+      </button>
     </context-menu>
   </div>
 </template>
@@ -58,26 +41,50 @@ import XSquare from './icons/XSquare.vue';
 export default {
   name: "layout-builder",
   data() {
+    var self = this;
+
     return {
       rows: [
         {
           type: "key-value-row",
         },
       ],
+      activeContextSubOptionsKey: undefined,
+      defaultContextOptions: {
+        'ctx-delete-row': {
+          text: 'Delete Row',
+          icon: 'df',
+          action: () => self.deleteRow()
+        },
+        'ctx-move-row-up': {
+          text: 'Move Up',
+          icon: 'df',
+          action: () => self.moveRowUp()
+        },
+        'ctx-move-row-dow': {
+          text: 'Move Row Down',
+          icon: 'df',
+          action: () => self.moveRowDown()
+        },
+        'ctx-add-row': {
+          text: 'Add Row',
+          icon: 'df',
+          action: () => self.openSubContextOption('ctx-add-row'),
+          subOptions: {
+            "ctx-add-key-value-row": { text: "Key/Value Row", action: () => self.addRow('key-value-row') },
+            "ctx-add-text-input-row": { text: "Text Input Row", action: () => self.addRow('text-input-row') },
+            "Heading Row": { text: "Heading Row", action: () => self.addRow('heading-row') },
+            "ctx-add-button-row": { text: "Button Row", action: () => self.addRow('button-row') },
+            "ctx-add-date-picker-row": { text: "Datepicker Row", action: () => self.addRow('date-picker-row') },
+            "ctx-add-select-row": { text: "Select Row", action: () => self.addRow('select-row') }
+          }
+        }
+      },
+      additionalContextOptions: {},
       ctxMenuVisible: false,
       ctxMenuX: 0,
       ctxMenuY: 0,
       selectedRowIndex: 0,
-      addRowOptionsIsOpen: false,
-      additionalContextOptions: [],
-      rowTypes: [
-        { type: "key-value-row", name: "Key/Value Row" },
-        { type: "text-input-row", name: "Text Input Row" },
-        { type: "heading-row", name: "Heading Row" },
-        { type: "button-row", name: "Button Row" },
-        { type: "date-picker-row", name: "Datepicker Row" },
-        { type: "select-row", name: "Select Row" }
-      ],
     };
   },
   components: {
@@ -101,6 +108,7 @@ export default {
       this.closeContextMenu();
     },
     deleteRow() {
+      console.log('deleting row')
       this.rows.splice(this.selectedRowIndex, 1);
       this.closeContextMenu();
     },
@@ -131,17 +139,37 @@ export default {
 
       if(options.contextOptions) {
         console.log(options.contextOptions)
-        this.additionalContextOptions = options.contextOptions;
+        // TODO: Add to additionalContextOptions
       }
     },
-    showAddRowOptions() {
-      this.addRowOptionsIsOpen = true;
+    openSubContextOption(contextOptionKey) {
+      this.activeContextSubOptionsKey = contextOptionKey;
+      console.log('Opening sub options for ' + contextOptionKey);
+      this.ctxMenuVisible = true;
     },
     closeContextMenu() {
       this.addRowOptionsIsOpen = false;
       this.ctxMenuVisible = false;
-    },
+    }
   },
+  computed: {
+    contextOptions() {
+      // TODO: Merge default and additional to create an all available options
+    },
+    activeContextOptions() {
+      if (this.activeContextSubOptionsKey) {
+        return this.defaultContextOptions[this.activeContextSubOptionsKey].subOptions;
+      } else {
+        return this.defaultContextOptions;
+      }
+      
+    }
+  },
+  watch: {
+    ctxMenuVisible(newVal) {
+      console.log('ctxMenuVisible is changin to ' + newVal)
+    }
+  }
 };
 </script>
 

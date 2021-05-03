@@ -11,11 +11,19 @@ export default {
     prop: ['colspan'],
     methods: {
         openContextMenu(e) {
+            var self = this;
+
             console.log('firing contextMenuOpen')
-            this.$emit('contextMenuOpen', {e: e, contextOptions: [{text: 'Do Something', action: this.doSomething}]})
+            this.$emit('contextMenuOpen', {e: e, contextOptions: [{
+                text: 'Select Class',
+                subOptions: [
+                    {text: 'Class 1', action: () => self.setClass('class1')},
+                    {text: 'Class 2', action: () => self.setClass('class2')}
+                ],
+            }]})
         },
-        doSomething() {
-            console.log('doSomething')
+        setClass(className) {
+            console.log('setting class to ' + className)
         }
     }
 }

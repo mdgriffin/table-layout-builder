@@ -3,14 +3,16 @@
 ## TODO
 
 - [ ] Get styles consistent
-- [ ] More row types
+- [X] More row types
     - [x] Date input row
     - [x] Select input
         - [ ] Make options editable
 - [x] ~~HTML Export~~ (handled by introspector)
-- [ ] Extract common row methods into mixin
+- [X] Extract common row methods into mixin
 - [ ] Cell CSS styling options in context menu
-
+- [ ] Need to keep context options open when selecting sub-menu
+    - Currently it closes because the `clickOutside` event is triggered
+- [ ] Need a common wrapper around the context actions that call close after the action is performed, but not when its opening a sub-menu
 
 ## Project setup
 ```

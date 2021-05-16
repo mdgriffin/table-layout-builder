@@ -1,5 +1,5 @@
 <template>
-    <td @contextmenu="openContextMenu($event)" colspan="colspan">
+    <td @contextmenu="openContextMenu($event)" colspan="colspan" :class="selectedClassName">
         <slot></slot>
     </td>
 </template>
@@ -9,6 +9,11 @@
 export default {
     name: 'row-cell',
     prop: ['colspan'],
+    data() {
+        return {
+            selectedClassName: ''
+        }
+    },
     methods: {
         openContextMenu(e) {
             var self = this;
@@ -25,7 +30,19 @@ export default {
         },
         setClass(className) {
             console.log('setting class to ' + className)
+            this.selectedClassName = className;
         }
     }
 }
 </script>
+
+
+<style>
+.class1 {
+    background: red !important;
+}
+
+.class2 {
+    background: blue !important;
+}
+</style>

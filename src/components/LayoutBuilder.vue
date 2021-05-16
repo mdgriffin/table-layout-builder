@@ -18,7 +18,7 @@
       :y-coord="ctxMenuY"
       @clickOutside="closeContextMenu"
     >
-      <button v-for="(contextOption, contextOptionKey) in activeContextOptions" v-bind:key="contextOptionKey" @click="contextOption.action? contextOption.action() : openSubContextOption(contextOptionKey)">
+      <button v-for="(contextOption, contextOptionKey) in activeContextOptions" v-bind:key="contextOptionKey" @click="executeContextAction(contextOption, contextOptionKey)">
         {{contextOption.text}}
       </button>
     </context-menu>
@@ -154,6 +154,14 @@ export default {
     closeContextMenu() {
       this.addRowOptionsIsOpen = false;
       this.ctxMenuVisible = false;
+    },
+    executeContextAction (contextOption, contextOptionKey) {
+      if (contextOption.action) {
+        contextOption.action();
+        this.closeContextMenu();
+      } else {
+        this.openSubContextOption(contextOptionKey);
+      }
     }
   },
   computed: {

@@ -175,11 +175,6 @@ export default {
       }
       
     }
-  },
-  watch: {
-    ctxMenuVisible(newVal) {
-      console.log('ctxMenuVisible is changin to ' + newVal)
-    }
   }
 };
 </script>

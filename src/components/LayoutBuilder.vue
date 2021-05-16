@@ -68,7 +68,6 @@ export default {
         'ctx-add-row': {
           text: 'Add Row',
           icon: 'df', // TODO: Use icon
-          //action: () => self.openSubContextOption('ctx-add-row'),
           subOptions: {
             "ctx-add-key-value-row": { text: "Key/Value Row", action: () => self.addRow('key-value-row') },
             "ctx-add-text-input-row": { text: "Text Input Row", action: () => self.addRow('text-input-row') },
@@ -108,7 +107,6 @@ export default {
       this.activeContextSubOptionsKey = undefined;
     },
     deleteRow() {
-      console.log('deleting row')
       this.rows.splice(this.selectedRowIndex, 1);
       this.closeContextMenu();
       this.activeContextSubOptionsKey = undefined;
@@ -141,14 +139,11 @@ export default {
       this.ctxMenuVisible = true;
 
       if(options.contextOptions) {
-        console.log(options.contextOptions)
         this.additionalContextOptions = options.contextOptions;
       }
     },
     openSubContextOption(contextOptionKey) {
       this.activeContextSubOptionsKey = contextOptionKey;
-      console.log('Opening sub options for ' + contextOptionKey);
-      this.ctxMenuVisible = true;
     },
     closeContextMenu() {
       this.addRowOptionsIsOpen = false;
@@ -158,6 +153,7 @@ export default {
       if (contextOption.action) {
         contextOption.action();
         this.closeContextMenu();
+        this.activeContextSubOptionsKey = null;
       } else {
         this.openSubContextOption(contextOptionKey);
       }
@@ -173,7 +169,6 @@ export default {
       } else {
         return this.contextOptions;
       }
-      
     }
   }
 };

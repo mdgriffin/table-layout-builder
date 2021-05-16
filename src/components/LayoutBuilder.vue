@@ -16,7 +16,6 @@
       v-if="ctxMenuVisible"
       :x-coord="ctxMenuX"
       :y-coord="ctxMenuY"
-      @clickOutside="closeContextMenu"
     >
       <button v-for="(contextOption, contextOptionKey) in activeContextOptions" v-bind:key="contextOptionKey" @click="executeContextAction(contextOption, contextOptionKey)">
         {{contextOption.text}}

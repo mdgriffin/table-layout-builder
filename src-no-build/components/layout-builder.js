@@ -24,12 +24,12 @@ var template = `
   </div>
 `
 
-import KeyValueRow from "./rowtypes/key-value.js";
-// import TextInputRow from "./rowtypes/TextInputRow";
+import KeyValueRow from "./rowtypes/key-value-row.js";
+import TextInputRow from "./rowtypes/text-input-row.js";
 // import HeadingRow from "./rowtypes/HeadingRow";
-// import ButtonRow from "./rowtypes/ButtonRow";
+import ButtonRow from "./rowtypes/button-row.js";
 // import SelectRow from "./rowtypes/SelectRow";
-// import DatePickerRow from "./rowtypes/DatePickerRow";
+import DatePickerRow from "./rowtypes/date-picker-row.js";
 import ContextMenu from "./context-menu.js";
 import ArrowUp from "./icons/arrow-up.js";
 import ArrowDown from "./icons/arrow-down.js"
@@ -87,11 +87,11 @@ export default {
   },
   components: {
     KeyValueRow,
-    // TextInputRow,
+    TextInputRow,
     // HeadingRow,
-    // ButtonRow,
+    ButtonRow,
     // SelectRow,
-    // DatePickerRow,
+    DatePickerRow,
     ContextMenu,
     ArrowUp,
     ArrowDown,
